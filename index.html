@@ -1,2 +1,433 @@
-# configgen-tools.github.io
-Webseite
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Antwortdatei-Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-primary: #4f46e5;
+            --brand-primary-hover: #4338ca;
+            --brand-ring: #6366f1;
+            --bg-dark: #1f2937;
+            --bg-medium: #374151;
+            --bg-light: #4b5563;
+            --text-light: #f9fafb;
+            --text-dark: #d1d5db;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+        [x-cloak] { display: none !important; }
+
+        .btn-primary {
+            background-color: var(--brand-primary);
+            color: var(--text-light);
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: var(--brand-primary-hover);
+            transform: scale(1.05);
+        }
+        .btn-primary:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--bg-dark), 0 0 0 4px var(--brand-ring);
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-3xl bg-gray-800 rounded-2xl shadow-2xl p-8 space-y-8">
+        <!-- Header -->
+        <header>
+            <!-- Logo-Platzhalter -->
+            <img src="https://placehold.co/100x100/4f46e5/d1d5db?text=Ph\nConfiger" alt="Projektlogo" class="mx-auto h-24 w-24 rounded-2xl mb-4">
+            <h1 class="text-3xl font-bold text-center text-white">Windows Antwortdatei-Generator</h1>
+            <p class="text-center text-gray-400 mt-2">Um den Online-Kontozwang bei der Windows-Installation zu umgehen und Software automatisch zu installieren.</p>
+        </header>
+
+        <!-- Anleitungs-Tabs -->
+        <main x-data="{ tab: 'erstellen' }" class="bg-gray-900 p-4 rounded-lg">
+            <div class="flex border-b border-gray-700">
+                <button @click="tab = 'erstellen'" :class="{ 'bg-indigo-600 text-white': tab === 'erstellen', 'text-gray-400 hover:bg-gray-700': tab !== 'erstellen' }" class="px-4 py-2 font-semibold rounded-t-lg focus:outline-none transition-colors duration-200">1. Datei erstellen</button>
+                <button @click="tab = 'anwenden'" :class="{ 'bg-indigo-600 text-white': tab === 'anwenden', 'text-gray-400 hover:bg-gray-700': tab !== 'anwenden' }" class="px-4 py-2 font-semibold rounded-t-lg focus:outline-none transition-colors duration-200">2. Datei anwenden</button>
+            </div>
+            <div class="py-4">
+
+
+                <!-- Tab-Inhalt: Erstellen -->
+                <div x-show="tab === 'erstellen'" x-cloak class="space-y-4" style="color: var(--text-dark);">
+                    <p>Wählen Sie Ihre Prozessorarchitektur. Optional können Sie Programme hinzufügen, die beim ersten Start automatisch installiert werden.</p>
+                     
+                    <div>
+                        <label for="architecture" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Prozessorarchitektur</label>
+                        <select id="architecture" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
+                            <option value="amd64" selected>64-bit (amd64) - Standard</option>
+                            <option value="x86">32-bit (x86)</option>
+                            <option value="arm64">ARM 64-bit (arm64)</option>
+                        </select>
+                    </div>
+
+                    <!-- Automatic Local Account Section -->
+                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
+                            <span class="font-semibold">Automatisches lokales Konto</span>
+                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
+                            <p class="text-sm" style="color: var(--text-dark);">Geben Sie einen Benutzernamen und optional ein Passwort ein, um ein lokales Konto automatisch zu erstellen.</p>
+                            <div>
+                                <label for="username" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Benutzername</label>
+                                <input type="text" id="username" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
+                            </div>
+                            <div>
+                                <label for="password" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Passwort (optional)</label>
+                                <input type="text" id="password" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Language and Regional Settings Section -->
+                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
+                            <span class="font-semibold">Sprach- & Regionseinstellungen</span>
+                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
+                            <p class="text-sm" style="color: var(--text-dark);">Stellen Sie Land, Sprache und Tastaturlayout für eine vollständig automatisierte Installation ein.</p>
+                            <div>
+                                <label for="countryOrRegion" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Land oder Region</label>
+                                <select id="countryOrRegion" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
+                                    <option value="">Manuell festlegen</option>
+                                    <option value="DE" selected>Deutschland</option>
+                                    <option value="US">USA</option>
+                                    <option value="GB">Großbritannien</option>
+                                    <option value="PT">Portugal</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="language" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Sprache & Tastaturlayout</label>
+                                <select id="language" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
+                                    <option value="">Manuell festlegen</option>
+                                    <option value="de-DE" selected>Deutsch (Deutschland)</option>
+                                    <option value="en-US">Englisch (USA)</option>
+                                    <option value="en-GB">Englisch (Großbritannien)</option>
+                                    <option value="pt-PT">Portugiesisch (Portugal)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- System Settings Section -->
+                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
+                            <span class="font-semibold">Systemeinstellungen (optional)</span>
+                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
+                            <p class="text-sm" style="color: var(--text-dark);">Legen Sie einen Computer-Namen fest und geben Sie optional einen Produkt-Key ein.</p>
+                            <div>
+                                <label for="computerName" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Computer-Name (optional)</label>
+                                <input type="text" id="computerName" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);" placeholder="z.B. MeinLaptop">
+                            </div>
+                            <div>
+                                <label for="productKey" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Product-Key (optional)</label>
+                                <input type="text" id="productKey" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Software Installation Section -->
+                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
+                            <span class="font-semibold">Optionale Software-Installation (via Winget)</span>
+                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
+                            <p class="text-sm" style="color: var(--text-dark);">Geben Sie die Winget-Paket-IDs der Programme an, die Sie installieren möchten (eine pro Zeile). Die Installation erfolgt im Hintergrund bei der ersten Anmeldung.</p>
+                            <div>
+                                <label for="winget-packages" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Winget Paket-IDs</label>
+                                <textarea id="winget-packages" rows="5" class="w-full border rounded-md p-3 font-mono text-sm" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);" placeholder="Beispiele:&#10;7zip.7zip&#10;Mozilla.Firefox&#10;VideoLAN.VLC&#10;Microsoft.PowerToys"></textarea>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="install-unigetui" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="install-unigetui" class="font-medium" style="color: var(--text-dark);">UnigetUI (früher WingetUI) als Update-Tool installieren</label>
+                                    <p style="color: var(--text-dark);">Eine grafische Oberfläche, um alle Ihre Programme einfach zu aktualisieren.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Privacy Section -->
+                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
+                            <span class="font-semibold">Datenschutz- & Telemetrie-Einstellungen</span>
+                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
+                            <p class="text-sm" style="color: var(--text-dark);">Optimieren Sie die Standardeinstellungen für mehr Privatsphäre.</p>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="disable-diagnostics" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="disable-diagnostics" class="font-medium" style="color: var(--text-light);">Diagnose- und Nutzungsdaten deaktivieren</label>
+                                    <p style="color: var(--text-dark);">Verhindert, dass Windows Informationen über Ihre Nutzung und Systemfehler an Microsoft sendet.</p>
+                                </div>
+                            </div>
+                            <div class="relative flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="disable-ads" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="disable-ads" class="font-medium" style="color: var(--text-light);">Personalisierte Werbe-ID deaktivieren</label>
+                                    <p style="color: var(--text-dark);">Verhindert, dass Windows Ihre Daten für personalisierte Werbung nutzt.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- OneDrive Section -->
+                    <div class="relative flex items-start rounded-lg p-3 border" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                        <div class="flex items-center h-5">
+                            <input id="uninstall-onedrive" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="uninstall-onedrive" class="font-medium" style="color: var(--text-light);">OneDrive deinstallieren</label>
+                            <p style="color: var(--text-dark);">Entfernt die OneDrive-Anwendung von Ihrer Windows-Installation.</p>
+                        </div>
+                    </div>
+
+                    <!-- Network Disconnect Section -->
+                    <div class="relative flex items-start rounded-lg p-3 border" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                        <div class="flex items-center h-5">
+                            <input id="disconnect-network" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="disconnect-network" class="font-medium" style="color: var(--text-light);">Netzwerkverbindung während der Installation trennen</label>
+                            <p style="color: var(--text-dark);">Verhindert Online-Kontozwang, indem alle Netzwerkverbindungen während der Einrichtung deaktiviert werden. Die Verbindungen werden danach automatisch wiederhergestellt.</p>
+                        </div>
+                    </div>
+
+                    <button onclick="generateFile()" class="w-full btn-primary font-bold py-3 px-4 rounded-lg">
+                        Antwortdatei generieren
+                    </button>
+                </div>
+
+
+                <!-- Tab-Inhalt: Anwenden -->
+                <div x-show="tab === 'anwenden'" x-cloak class="space-y-3 prose prose-invert max-w-none" style="color: var(--text-dark);">
+                    <p class="mb-6">Nachdem Sie die Antwortdatei erstellt und gespeichert haben, können Sie sie auf zwei Arten anwenden:</p>
+                    
+                    <!-- Option A: Clean Installation (autounattend) -->
+                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-light);">Option A: Für eine saubere Neuinstallation (Boot vom USB-Stick)</h3>
+                    <p>
+                        Dies ist die einfachste und zuverlässigste Methode.
+                    </p>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>Speichern Sie die generierte XML-Datei als <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">autounattend.xml</code>.</li>
+                        <li>Kopieren Sie die Datei in das **Hauptverzeichnis** Ihres Windows-Installations-USB-Sticks.</li>
+                        <li>Starten Sie den Computer vom USB-Stick neu. Die Installation wird nun vollautomatisch ablaufen.</li>
+                    </ol>
+                    
+                    <!-- Divider -->
+                    <div class="my-6 border-t" style="border-color: var(--bg-light);"></div>
+                    
+                    <!-- Option B: OEM Method -->
+                    <h3 class="text-lg font-bold mb-2" style="color: var(--text-light);">Option B: Vorbereiten einer OEM-Installation (z. B. mit Rufus)</h3>
+                    <p>
+                        Dies ist eine fortgeschrittene Methode, um eine unbeaufsichtigte Installation vorzubereiten.
+                    </p>
+                    <ol class="list-decimal list-inside space-y-2">
+                        <li>Speichern Sie die generierte XML-Datei als <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">unattend.xml</code> (ohne das "auto").</li>
+                        <li>Erstellen Sie auf dem USB-Stick im Ordner <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">sources</code> einen Ordner namens <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">\$OEM\$</code> (mit den Dollarzeichen!).</li>
+                        <li>Erstellen Sie in diesem Ordner einen weiteren Ordner namens <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">$$\</code>.</li>
+                        <li>Erstellen Sie in diesem Ordner einen weiteren Ordner namens <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">Panther</code>.</li>
+                        <li>Kopieren Sie die <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">unattend.xml</code>-Datei in den Ordner <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">sources\$OEM$\$$\Panther</code>.</li>
+                        <li>
+                            Stellen Sie sicher, dass die Dateistruktur wie folgt aussieht: 
+                            <code class="block mt-2 px-3 py-2 rounded-md font-mono text-sm" style="background-color: var(--bg-light);">
+                                USB_Stick:\<br>
+                                ├── install.wim<br>
+                                ├── boot\<br>
+                                └── **sources**<br>
+                                &nbsp;&nbsp;&nbsp;└── **$OEM$**<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── **$$\**<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── **Panther**<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── **unattend.xml**
+                            </code>
+                        </li>
+                        <li>Booten Sie vom USB-Stick. Der Installer wird nun die <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">unattend.xml</code>-Datei aus der OEM-Struktur finden und verwenden.</li>
+                    </ol>
+
+                    <div class="bg-yellow-900/50 border-l-4 border-yellow-400 p-4 rounded-r-lg">
+                        <p class="font-bold text-yellow-300">Wichtiger Hinweis</p>
+                        <p class="text-yellow-200">Wenn Sie Software zur Installation ausgewählt haben, kann die erste Anmeldung am neuen Windows-System einige Minuten länger dauern. Die Programme werden im Hintergrund heruntergeladen und installiert. Bitte haben Sie etwas Geduld.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+
+        <!-- Ausgabe-Bereich -->
+        <div class="relative" id="output-container" style="display: none;">
+            <label for="output" class="block text-sm font-medium mb-2" style="color: var(--text-dark);">Generierte `autounattend.xml`</label>
+            <textarea id="output" readonly class="w-full h-64 border rounded-md p-4 text-sm font-mono focus:ring-2" style="background-color: var(--bg-dark); border-color: var(--bg-light); color: var(--text-dark);"></textarea>
+            <button onclick="copyToClipboard()" id="copy-button" class="absolute top-10 right-3 py-2 px-3 rounded-md text-sm transition-all duration-200" style="background-color: var(--bg-light); color: var(--text-light);">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" /><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2H6zM8 7a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm-1 4a1 1 0 100 2h4a1 1 0 100-2H7z" /></svg>
+            </button>
+            <div id="copy-success" class="absolute top-10 right-3 py-2 px-3 rounded-md text-sm" style="display: none; background-color: var(--brand-primary-hover); color: var(--text-light);">Kopiert!</div>
+        </div>
+    </div>
+
+	<script src="https://cdn.jsdelivr.net/npm/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+	<script>
+		function generateFile() {
+			const architecture = document.getElementById('architecture').value;
+			const usernameInput = document.getElementById('username').value;
+			const passwordInput = document.getElementById('password').value;
+			const countryOrRegion = document.getElementById('countryOrRegion').value;
+			const language = document.getElementById('language').value;
+			const computerNameInput = document.getElementById('computerName').value;
+			const productKeyInput = document.getElementById('productKey').value;
+			const disableDiagnostics = document.getElementById('disable-diagnostics').checked;
+			const disableAds = document.getElementById('disable-ads').checked;
+			const disconnectNetwork = document.getElementById('disconnect-network').checked;
+
+
+
+
+            
+			let protectYourPCValue = 1; // Standard
+			if (disableDiagnostics || disableAds) {
+				protectYourPCValue = 3; // Wert zum Deaktivieren von Diagnosedaten und Werbe-ID
+			}
+
+			let userAccountXml = '';
+			if (usernameInput) {
+				userAccountXml = 
+			`<UserAccounts>
+				<LocalAccounts>
+					<LocalAccount wcm:action="add">
+						<Name>${usernameInput}</Name>
+						<Group>Administrators</Group>
+						<Password>
+							<Value>${passwordInput}</Value>
+							<PlainText>true</PlainText>
+						</Password>
+					</LocalAccount>
+				</LocalAccounts>
+			</UserAccounts>`;
+			}
+
+			let productKeyXml = `<Key/>`;
+			if (productKeyInput) {
+				productKeyXml = `<Key>${productKeyInput}</Key>`;
+			}
+
+			let computerNameXml = '';
+			if (computerNameInput) {
+				computerNameXml = `<ComputerName>${computerNameInput}</ComputerName>`;
+			}
+
+
+			const networkComponentsXml = disconnectNetwork ? 
+	`<settings pass="offlineServicing">
+		<component name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<DisableWLANUI>true</DisableWLANUI>
+			<DisableWiredNetwork>true</DisableWiredNetwork>
+		</component>
+	</settings>` : '';
+
+            const xmlTemplate = `
+
+<?xml version="1.0" encoding="utf-8"?>
+<unattend xmlns="urn:schemas-microsoft-com:unattend" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<settings pass="windowsPE">
+		<component name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<UILanguage>${language}</UILanguage>
+		</component>
+		<component name="Microsoft-Windows-Setup" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<UserData>
+				<ProductKey>
+					${productKeyXml}
+				</ProductKey>
+			</UserData>
+		</component>
+	</settings>
+	<settings pass="specialize">
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			${computerNameXml}
+		</component>
+	</settings>
+	<settings pass="oobeSystem">
+		<component name="Microsoft-Windows-International-Core" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<InputLocale>${language}</InputLocale>
+			<SystemLocale>${language}</SystemLocale>
+			<UILanguage>${language}</UILanguage>
+			<UserLocale>${language}</UserLocale>
+		</component>
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+			<OOBE>
+				<HideEULAPage>true</HideEULAPage>
+				<HideOnlineAccountScreens>true</HideOnlineAccountScreens>
+				<HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
+				<ProtectYourPC>${protectYourPCValue}</ProtectYourPC>
+			</OOBE>
+			${userAccountXml}
+		</component>
+	</settings>
+	${networkComponentsXml}
+</unattend>`;
+
+			document.getElementById('output').value = xmlTemplate.trim();
+			document.getElementById('output-container').style.display = 'block';
+			document.getElementById('output').style.height = '16rem';
+        }
+
+		function copyToClipboard() {
+			const outputTextarea = document.getElementById('output');
+			outputTextarea.select();
+			try {
+				document.execCommand('copy');
+				showCopySuccessMessage();
+			} catch (err) {
+				console.error('Fehler: Konnte den Text nicht kopieren.', err);
+			}
+			if (window.getSelection) {
+				window.getSelection().removeAllRanges();
+			}
+		}
+
+		function showCopySuccessMessage() {
+			const copyButton = document.getElementById('copy-button');
+			const successMessage = document.getElementById('copy-success');
+			copyButton.style.display = 'none';
+			successMessage.style.display = 'block';
+			setTimeout(() => {
+				copyButton.style.display = 'block';
+				successMessage.style.display = 'none';
+			}, 2000);
+		}
+	</script>
+</body>
+</html>

@@ -149,32 +149,6 @@
                     </div>
 
 
-                    <!-- Software Installation Section -->
-                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
-                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
-                            <span class="font-semibold">Optionale Software-Installation (via Winget)</span>
-                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
-                            <p class="text-sm" style="color: var(--text-dark);">Geben Sie die Winget-Paket-IDs der Programme an, die Sie installieren möchten (eine pro Zeile). Die Installation erfolgt im Hintergrund bei der ersten Anmeldung.</p>
-                            <div>
-                                <label for="winget-packages" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Winget Paket-IDs</label>
-                                <textarea id="winget-packages" rows="5" class="w-full border rounded-md p-3 font-mono text-sm" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);" placeholder="Beispiele:&#10;7zip.7zip&#10;Mozilla.Firefox&#10;VideoLAN.VLC&#10;Microsoft.PowerToys"></textarea>
-                            </div>
-                            <div class="relative flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input id="install-unigetui" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="install-unigetui" class="font-medium" style="color: var(--text-dark);">UnigetUI (früher WingetUI) als Update-Tool installieren</label>
-                                    <p style="color: var(--text-dark);">Eine grafische Oberfläche, um alle Ihre Programme einfach zu aktualisieren.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- Privacy Section -->
                     <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
                         <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
@@ -206,16 +180,6 @@
                         </div>
                     </div>
 
-                    <!-- OneDrive Section -->
-                    <div class="relative flex items-start rounded-lg p-3 border" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
-                        <div class="flex items-center h-5">
-                            <input id="uninstall-onedrive" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
-                        </div>
-                        <div class="ml-3 text-sm">
-                            <label for="uninstall-onedrive" class="font-medium" style="color: var(--text-light);">OneDrive deinstallieren</label>
-                            <p style="color: var(--text-dark);">Entfernt die OneDrive-Anwendung von Ihrer Windows-Installation.</p>
-                        </div>
-                    </div>
 
                     <!-- Network Disconnect Section -->
                     <div class="relative flex items-start rounded-lg p-3 border" style="background-color: var(--bg-medium); border-color: var(--bg-light);">

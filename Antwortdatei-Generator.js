@@ -117,6 +117,20 @@ function generateFile() {
 }
 
 /**
+ * Zeigt die Erfolgsmeldung für das Kopieren an und blendet sie nach 2 Sekunden wieder aus.
+ */
+function showCopySuccessMessage() {
+    const copyButton = document.getElementById('copy-button');
+    const successMessage = document.getElementById('copy-success');
+    copyButton.style.display = 'none';
+    successMessage.style.display = 'block';
+    setTimeout(() => {
+        copyButton.style.display = 'block';
+        successMessage.style.display = 'none';
+    }, 2000);
+}
+
+/**
  * Kopiert den Inhalt der generierten XML-Datei in die Zwischenablage.
  */
 function copyToClipboard() {
@@ -137,16 +151,21 @@ function copyToClipboard() {
     }
 }
 
+
 /**
- * Zeigt die Erfolgsmeldung für das Kopieren an und blendet sie nach 2 Sekunden wieder aus.
+ * Event-Listener anhängen, nachdem das DOM vollständig geladen wurde.
+ * Dies ist notwendig, da das Skript mit 'defer' geladen wird.
  */
-function showCopySuccessMessage() {
+document.addEventListener('DOMContentLoaded', () => {
+    const generateButton = document.getElementById('generate-button');
     const copyButton = document.getElementById('copy-button');
-    const successMessage = document.getElementById('copy-success');
-    copyButton.style.display = 'none';
-    successMessage.style.display = 'block';
-    setTimeout(() => {
-        copyButton.style.display = 'block';
-        successMessage.style.display = 'none';
-    }, 2000);
-}
+
+    if (generateButton) {
+        generateButton.addEventListener('click', generateFile);
+    }
+
+    // Der Kopier-Button ist anfangs nicht sichtbar, aber wir binden den Listener trotzdem.
+    if (copyButton) {
+        copyButton.addEventListener('click', copyToClipboard);
+    }
+});

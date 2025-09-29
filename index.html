@@ -42,7 +42,7 @@
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
-    <div class="w-full max-w-3xl bg-gray-800 rounded-2xl shadow-2xl p-8 space-y-8">
+    <div class="w-full max-w-6xl bg-gray-800 rounded-2xl shadow-2xl p-8 space-y-8">
         <!-- Header -->
         <header>
             <!-- Logo-Platzhalter -->
@@ -63,7 +63,7 @@
                 <!-- Tab-Inhalt: Erstellen -->
                 <div x-show="tab === 'erstellen'" x-cloak class="space-y-4" style="color: var(--text-dark);">
                     <p>Wählen Sie Ihre Prozessorarchitektur. Optional können Sie Programme hinzufügen, die beim ersten Start automatisch installiert werden.</p>
-                     
+
                     <div>
                         <label for="architecture" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Prozessorarchitektur</label>
                         <select id="architecture" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
@@ -74,9 +74,8 @@
                     </div>
 
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-start">
 
-                        <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
                         <!-- Automatic Local Account Section -->
                         <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
                             <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
@@ -98,104 +97,102 @@
                             </div>
                         </div>
 
-                    <!-- Language and Regional Settings Section -->
-                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
-                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
-                            <span class="font-semibold">Sprach- & Regionseinstellungen</span>
-                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
-                            <p class="text-sm" style="color: var(--text-dark);">Stellen Sie Land, Sprache und Tastaturlayout für eine vollständig automatisierte Installation ein.</p>
-                            <div>
-                                <label for="countryOrRegion" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Land oder Region</label>
-                                <select id="countryOrRegion" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
-                                    <option value="">Manuell festlegen</option>
-                                    <option value="DE" selected>Deutschland</option>
-                                    <option value="US">USA</option>
-                                    <option value="GB">Großbritannien</option>
-                                    <option value="PT">Portugal</option>
-                                </select>
+                        <!-- Language and Regional Settings Section -->
+                        <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                            <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
+                                <span class="font-semibold">Sprach- & Regionseinstellungen</span>
+                                <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
+                                <p class="text-sm" style="color: var(--text-dark);">Stellen Sie Land, Sprache und Tastaturlayout für eine vollständig automatisierte Installation ein.</p>
+                                <div>
+                                    <label for="countryOrRegion" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Land oder Region</label>
+                                    <select id="countryOrRegion" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
+                                        <option value="">Manuell festlegen</option>
+                                        <option value="DE" selected>Deutschland</option>
+                                        <option value="US">USA</option>
+                                        <option value="GB">Großbritannien</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="language" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Sprache & Tastaturlayout</label>
+                                    <select id="language" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
+                                        <option value="">Manuell festlegen</option>
+                                        <option value="de-DE" selected>Deutsch (Deutschland)</option>
+                                        <option value="en-US">Englisch (USA)</option>
+                                        <option value="en-GB">Englisch (Großbritannien)</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div>
-                                <label for="language" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Sprache & Tastaturlayout</label>
-                                <select id="language" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
-                                    <option value="">Manuell festlegen</option>
-                                    <option value="de-DE" selected>Deutsch (Deutschland)</option>
-                                    <option value="en-US">Englisch (USA)</option>
-                                    <option value="en-GB">Englisch (Großbritannien)</option>
-                                    <option value="pt-PT">Portugiesisch (Portugal)</option>
-                                </select>
+                        </div>
+
+                        <!-- System Settings Section -->
+                        <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                            <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
+                                <span class="font-semibold">Systemeinstellungen (optional)</span>
+                                <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
+                                <p class="text-sm" style="color: var(--text-dark);">Legen Sie einen Computer-Namen fest und geben Sie optional einen Produkt-Key ein.</p>
+                                <div>
+                                    <label for="computerName" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Computer-Name (optional)</label>
+                                    <input type="text" id="computerName" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);" placeholder="z.B. MeinLaptop">
+                                </div>
+                                <div>
+                                    <label for="productKey" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Product-Key (optional)</label>
+                                     <input type="text" id="productKey" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Privacy Section -->
+                        <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                            <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
+                                <span class="font-semibold">Datenschutz- & Telemetrie-Einstellungen</span>
+                                <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
+                                <p class="text-sm" style="color: var(--text-dark);">Optimieren Sie die Standardeinstellungen für mehr Privatsphäre.</p>
+                                <div class="relative flex items-start">
+                                    <div class="flex items-center h-5">
+                                        <input id="disable-diagnostics" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <label for="disable-diagnostics" class="font-medium" style="color: var(--text-light);">Diagnose- und Nutzungsdaten deaktivieren</label>
+                                        <p style="color: var(--text-dark);">Verhindert, dass Windows Informationen über Ihre Nutzung und Systemfehler an Microsoft sendet.</p>
+                                    </div>
+                                </div>
+                                <div class="relative flex items-start">
+                                    <div class="flex items-center h-5">
+                                        <input id="disable-ads" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <label for="disable-ads" class="font-medium" style="color: var(--text-light);">Personalisierte Werbe-ID deaktivieren</label>
+                                        <p style="color: var(--text-dark);">Verhindert, dass Windows Ihre Daten für personalisierte Werbung nutzt.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network Disconnect Section -->
+                        <div class="relative flex items-start rounded-lg p-3 border" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
+                            <div class="flex items-center h-5">
+                                <input id="disconnect-network" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="disconnect-network" class="font-medium" style="color: var(--text-light);">Netzwerkverbindung während der Installation trennen</label>
+                                <p style="color: var(--text-dark);">Verhindert Online-Kontozwang, indem alle Netzwerkverbindungen während der Einrichtung deaktiviert werden. Die Verbindungen werden danach automatisch wiederhergestellt.</p>
                             </div>
                         </div>
                     </div>
 
-                    <!-- System Settings Section -->
-                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
-                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
-                            <span class="font-semibold">Systemeinstellungen (optional)</span>
-                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
-                            <p class="text-sm" style="color: var(--text-dark);">Legen Sie einen Computer-Namen fest und geben Sie optional einen Produkt-Key ein.</p>
-                            <div>
-                                <label for="computerName" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Computer-Name (optional)</label>
-                                <input type="text" id="computerName" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);" placeholder="z.B. MeinLaptop">
-                            </div>
-                            <div>
-                                <label for="productKey" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Product-Key (optional)</label>
-                                <input type="text" id="productKey" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);" placeholder="XXXXX-XXXXX-XXXXX-XXXXX-XXXXX">
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Privacy Section -->
-                    <div x-data="{ open: false }" class="rounded-lg border transition-all duration-300" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
-                        <button @click="open = !open" class="w-full text-left p-3 flex justify-between items-center focus:outline-none focus:ring-2 focus:ring-inset rounded-lg" style="color: var(--text-light);">
-                            <span class="font-semibold">Datenschutz- & Telemetrie-Einstellungen</span>
-                            <svg :class="{'rotate-180': open}" class="w-5 h-5 transition-transform duration-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                            </svg>
-                        </button>
-                        <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
-                            <p class="text-sm" style="color: var(--text-dark);">Optimieren Sie die Standardeinstellungen für mehr Privatsphäre.</p>
-                            <div class="relative flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input id="disable-diagnostics" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="disable-diagnostics" class="font-medium" style="color: var(--text-light);">Diagnose- und Nutzungsdaten deaktivieren</label>
-                                    <p style="color: var(--text-dark);">Verhindert, dass Windows Informationen über Ihre Nutzung und Systemfehler an Microsoft sendet.</p>
-                                </div>
-                            </div>
-                            <div class="relative flex items-start">
-                                <div class="flex items-center h-5">
-                                    <input id="disable-ads" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
-                                </div>
-                                <div class="ml-3 text-sm">
-                                    <label for="disable-ads" class="font-medium" style="color: var(--text-light);">Personalisierte Werbe-ID deaktivieren</label>
-                                    <p style="color: var(--text-dark);">Verhindert, dass Windows Ihre Daten für personalisierte Werbung nutzt.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Network Disconnect Section -->
-                    <div class="relative flex items-start rounded-lg p-3 border" style="background-color: var(--bg-medium); border-color: var(--bg-light);">
-                        <div class="flex items-center h-5">
-                            <input id="disconnect-network" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
-                        </div>
-                        <div class="ml-3 text-sm">
-                            <label for="disconnect-network" class="font-medium" style="color: var(--text-light);">Netzwerkverbindung während der Installation trennen</label>
-                            <p style="color: var(--text-dark);">Verhindert Online-Kontozwang, indem alle Netzwerkverbindungen während der Einrichtung deaktiviert werden. Die Verbindungen werden danach automatisch wiederhergestellt.</p>
-                        </div>
-                    </div>
-
+                    <!-- Tab-Inhalt: Antwortdatei generieren -->
                     <button onclick="generateFile()" class="w-full btn-primary font-bold py-3 px-4 rounded-lg">
                         Antwortdatei generieren
                     </button>

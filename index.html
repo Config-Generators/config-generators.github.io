@@ -81,16 +81,6 @@
                                 <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                             </svg>
                         </button>
-                        <!-- Network Disconnect Section -->
-                        <div class="relative flex items-start">
-                            <div class="flex items-center h-5">
-                                <input id="disconnect-network" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">
-                            </div>
-                            <div class="ml-3 text-sm">
-                                <label for="disconnect-network" class="font-medium" style="color: var(--text-light);">Netzwerkverbindung während der Installation trennen</label>
-                                <p style="color: var(--text-dark);">Verhindert Online-Kontozwang, indem alle Netzwerkverbindungen während der Einrichtung deaktiviert werden. Die Verbindungen werden danach automatisch wiederhergestellt.</p>
-                            </div>
-                        </div>
                         <div x-show="open" x-collapse x-cloak class="p-4 border-t border-gray-700 space-y-4" style="border-color: var(--bg-light);">
                             <p class="text-sm" style="color: var(--text-dark);">Geben Sie einen Benutzernamen und optional ein Passwort ein, um ein lokales Konto automatisch zu erstellen.</p>
                             <div>
@@ -101,7 +91,6 @@
                                 <label for="password" class="block text-sm font-medium mb-1" style="color: var(--text-dark);">Passwort (optional)</label>
                                 <input type="text" id="password" class="w-full border rounded-md p-3" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--text-light);">
                             </div>
-                            <!-- Network Disconnect Section -->
                             <div class="relative flex items-start">
                                 <div class="flex items-center h-5">
                                     <input id="disconnect-network" type="checkbox" class="h-4 w-4 rounded" style="background-color: var(--bg-light); border-color: var(--bg-light); color: var(--brand-primary);">

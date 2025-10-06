@@ -252,10 +252,16 @@
         <div class="relative" id="output-container" style="display: none;">
             <label for="output" class="block text-sm font-medium mb-2" style="color: var(--text-dark);">Generierte `autounattend.xml`</label>
             <textarea id="output" readonly class="w-full h-64 border rounded-md p-4 text-sm font-mono focus:ring-2" style="background-color: var(--bg-dark); border-color: var(--bg-light); color: var(--text-dark);"></textarea>
-            <button onclick="copyToClipboard()" id="copy-button" class="absolute top-10 right-3 py-2 px-3 rounded-md text-sm transition-all duration-200" style="background-color: var(--bg-light); color: var(--text-light);">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z" /><path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2H6zM8 7a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1zm-1 4a1 1 0 100 2h4a1 1 0 100-2H7z" /></svg>
-            </button>
-            <div id="copy-success" class="absolute top-10 right-3 py-2 px-3 rounded-md text-sm" style="display: none; background-color: var(--brand-primary-hover); color: var(--text-light);">Kopiert!</div>
+            <div class="mt-4 flex space-x-4">
+                <!-- NEUER DOWNLOAD-BUTTON -->
+                <button onclick="downloadXMLFile('autounattend.xml')" id="download-xml-btn" class="flex-1 btn-primary font-semibold py-3 px-4 rounded-lg shadow-md flex justify-center items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L10 11.586l1.293-1.293a1 1 0 111.414 1.414l-2 2a1 1 0 01-1.414 0l-2-2a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v7a1 1 0 11-2 0V3a1 1 0 011-1z" clip-rule="evenodd" />
+                    </svg>
+                    XML herunterladen
+                </button>
+            </div>
         </div>
     </div>
 
@@ -284,8 +290,8 @@
 
 			let userAccountXml = '';
 			if (usernameInput) {
-				userAccountXml = 
-			`<UserAccounts>
+				userAccountXml = `
+			<UserAccounts>
 				<LocalAccounts>
 					<LocalAccount wcm:action="add">
 						<Name>${usernameInput}</Name>
@@ -306,12 +312,13 @@
 
 			let computerNameXml = '';
 			if (computerNameInput) {
-				computerNameXml = `<ComputerName>${computerNameInput}</ComputerName>`;
+				computerNameXml = `
+			<ComputerName>${computerNameInput}</ComputerName>`;
 			}
 
 
-			const networkComponentsXml = disconnectNetwork ? 
-	`<settings pass="offlineServicing">
+			const networkComponentsXml = disconnectNetwork ? `
+	<settings pass="offlineServicing">
 		<component name="Microsoft-Windows-PnpCustomizationsWinPE" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<DisableWLANUI>true</DisableWLANUI>
 			<DisableWiredNetwork>true</DisableWiredNetwork>
@@ -335,8 +342,7 @@
 		</component>
 	</settings>
 	<settings pass="specialize">
-		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-			${computerNameXml}
+		<component name="Microsoft-Windows-Shell-Setup" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">${computerNameXml}
 		</component>
 		<component name="Microsoft-Windows-Deployment" processorArchitecture="${architecture}" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<RunSynchronous>
@@ -360,11 +366,9 @@
 				<HideOnlineAccountScreens>true</HideOnlineAccountScreens>
 				<HideWirelessSetupInOOBE>true</HideWirelessSetupInOOBE>
 				<ProtectYourPC>${protectYourPCValue}</ProtectYourPC>
-			</OOBE>
-			${userAccountXml}
+			</OOBE>${userAccountXml}
 		</component>
-	</settings>
-	${networkComponentsXml}
+	</settings>${networkComponentsXml}
 </unattend>`;
 
 			document.getElementById('output').value = xmlTemplate.trim();
@@ -372,19 +376,22 @@
 			document.getElementById('output').style.height = '16rem';
         }
 
-		function copyToClipboard() {
-			const outputTextarea = document.getElementById('output');
-			outputTextarea.select();
-			try {
-				document.execCommand('copy');
-				showCopySuccessMessage();
-			} catch (err) {
-				console.error('Fehler: Konnte den Text nicht kopieren.', err);
-			}
-			if (window.getSelection) {
-				window.getSelection().removeAllRanges();
-			}
-		}
+        // Neue Funktion zum Herunterladen der XML-Datei
+        function downloadXMLFile(filename) {
+            const xmlContent = document.getElementById('output').value;
+            // MIME-Type für XML-Dateien
+            const blob = new Blob([xmlContent], { type: 'application/xml' }); 
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href); // Speicher freigeben
+            
+            // Optional: Visuelles Feedback
+            alert("Die Datei '" + filename + "' wurde heruntergeladen!");
+        }
 
 		function showCopySuccessMessage() {
 			const copyButton = document.getElementById('copy-button');

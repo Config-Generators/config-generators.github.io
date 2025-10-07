@@ -1,1 +1,1 @@
-# configgen-tools.github.io
+# config-generators.github.io

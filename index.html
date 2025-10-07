@@ -219,8 +219,8 @@
                     </p>
                     <ol class="list-decimal list-inside space-y-2">
                         <li>Speichern Sie die generierte XML-Datei als <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">unattend.xml</code> (ohne das "auto").</li>
-                        <li>Erstellen Sie auf dem USB-Stick im Ordner <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">sources</code> einen Ordner namens <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">\$OEM\$</code> (mit den Dollarzeichen!).</li>
-                        <li>Erstellen Sie in diesem Ordner einen weiteren Ordner namens <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">$$\</code>.</li>
+                        <li>Erstellen Sie auf dem USB-Stick im Ordner <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">sources</code> einen Ordner namens <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">$OEM$</code> (mit den Dollarzeichen!).</li>
+                        <li>Erstellen Sie in diesem Ordner einen weiteren Ordner namens <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">$$</code>.</li>
                         <li>Erstellen Sie in diesem Ordner einen weiteren Ordner namens <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">Panther</code>.</li>
                         <li>Kopieren Sie die <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">unattend.xml</code>-Datei in den Ordner <code class="px-1 py-0.5 rounded" style="background-color: var(--bg-light);">sources\$OEM$\$$\Panther</code>.</li>
                         <li>
@@ -229,10 +229,10 @@
                                 USB_Stick:\<br>
                                 ├── install.wim<br>
                                 ├── boot\<br>
-                                └── **sources**<br>
-                                &nbsp;&nbsp;&nbsp;└── **$OEM$**<br>
+                                └── **sources\**<br>
+                                &nbsp;&nbsp;&nbsp;└── **$OEM$\**<br>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── **$$\**<br>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── **Panther**<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── **Panther\**<br>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── **unattend.xml**
                             </code>
                         </li>

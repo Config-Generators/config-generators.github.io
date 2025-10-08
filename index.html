@@ -388,9 +388,6 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(a.href); // Speicher freigeben
-            
-            // Optional: Visuelles Feedback
-            alert("Die Datei '" + filename + "' wurde heruntergeladen!");
         }
 
 		function showCopySuccessMessage() {

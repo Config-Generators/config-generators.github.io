@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meine GitHub Installationsgenerator</title>
-    <!-- Tailwind CSS CDN für schnelles, modernes Styling -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css">
+
     <style>
         /* Angepasste Schriftart */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
@@ -21,10 +23,8 @@
 </head>
 <body class="min-h-screen flex items-center justify-center p-4">
 
-    <!-- Haupt-Container für die Projektliste (Responsive Card) -->
     <div class="w-full max-w-xl bg-gray-800 p-8 rounded-xl shadow-2xl border border-gray-700">
 
-        <!-- Kopfzeile -->
         <header class="text-center mb-10">
             <h1 class="text-3xl sm:text-4xl font-bold text-gray-50 mb-2">
                 Generatoren für die Windows Installation
@@ -32,30 +32,25 @@
             <p class="text-gray-400">Direkter Zugriff auf meine wichtigsten GitHub-Tools (Live-Versionen).</p>
         </header>
 
-        <!-- Liste der Projekt-Buttons -->
         <main class="space-y-4">
 
-            <!-- Projekt 1 (Live-URL) -->
             <a id="project-1-link" href="https://config-generators.github.io/win-answerfile/" target="_blank" rel="noopener noreferrer"
                class="flex items-center justify-between p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition duration-300 transform hover:scale-[1.01] shadow-md group">
-                <span class="font-semibold text-lg text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-3 text-cyan-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M6 2a2 2 0 00-2 2v12a2 2 0 002 2h8a2 2 0 002-2V7.414A2 2 0 0015.414 6L12 2.586A2 2 0 0010.586 2H6zm5 6a1 1 0 10-2 0v5a1 1 0 102 0V8z" clip-rule="evenodd" />
-                    </svg>
-                    Windows antwortete Generator
+                <span class="font-semibold text-lg text-white flex items-center">
+                    <i class="mdi mdi-file-cog text-2xl mr-3 text-cyan-400 transition-colors"></i>
+                    
+                    Windows Antwortdatei Generator
                 </span>
                 <span class="text-sm font-medium text-cyan-400 group-hover:text-cyan-300">
                     Zum Tool →
                 </span>
             </a>
 
-            <!-- Projekt 2 (Live-URL) -->
             <a id="project-2-link" href="https://config-generators.github.io/auto-installskript/" target="_blank" rel="noopener noreferrer"
                class="flex items-center justify-between p-4 bg-gray-700 hover:bg-gray-600 rounded-lg transition duration-300 transform hover:scale-[1.01] shadow-md group">
-                <span class="font-semibold text-lg text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-3 text-amber-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707l-.707-.707V8a6 6 0 00-6-6zm-5 8.242V8a5 5 0 0110 0v2.242l.293.293A1 1 0 0016 12H4a1 1 0 00.707-1.707l.293-.293zM9 16a3 3 0 106 0H9z" />
-                    </svg>
+                <span class="font-semibold text-lg text-white flex items-center">
+                    <i class="mdi mdi-robot text-2xl mr-3 text-amber-400 transition-colors"></i>
+
                     Auto Installer Script Generator
                 </span>
                 <span class="text-sm font-medium text-amber-400 group-hover:text-amber-300">
@@ -65,7 +60,6 @@
 
         </main>
 
-        <!-- Fußzeile -->
         <footer class="mt-8 text-center pt-4 border-t border-gray-700">
             <p class="text-xs text-gray-500">
                 Erstellt mit ❤️. Besuche mein <a href="https://github.com/Config-Generators" target="_blank" class="text-gray-400 hover:text-cyan-400 transition duration-150">GitHub Profil</a> für mehr.
